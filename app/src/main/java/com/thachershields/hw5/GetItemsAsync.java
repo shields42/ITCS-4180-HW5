@@ -41,6 +41,7 @@ public class GetItemsAsync extends AsyncTask<String, Void, ArrayList<Podcast>> {
                     long tempId = 0;
                     JSONObject currentSourceObject = podcasts.getJSONObject(i);
                     //Some stuff
+                    //Other stuff
                     Podcast currentPodcast = new Podcast();
 
                     try{
