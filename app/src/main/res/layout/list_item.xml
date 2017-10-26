@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/imgImage"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginBottom="8dp"
@@ -24,14 +24,14 @@
             app:srcCompat="@android:drawable/btn_dialog" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/lblTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
-            android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium"
-            app:layout_constraintLeft_toRightOf="@+id/imageView3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_constraintLeft_toRightOf="@+id/imgImage"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

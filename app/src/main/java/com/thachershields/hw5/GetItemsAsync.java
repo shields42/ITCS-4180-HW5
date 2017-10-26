@@ -6,6 +6,7 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -33,38 +34,13 @@ public class GetItemsAsync extends AsyncTask<String, Void, ArrayList<Podcast>> {
 
             connection.connect();
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                String json = IOUtils.toString(connection.getInputStream(), "UTF-8");
-                JSONObject root =  new JSONObject(json); //Represents object which categories is in
-                JSONArray podcasts = root.getJSONArray("articles");
-                for (int i = 0; i < podcasts.length(); i++)
-                {
-                    long tempId = 0;
-                    JSONObject currentSourceObject = podcasts.getJSONObject(i);
-                    //Some stuff
-                    //Other stuff
-                    Podcast currentPodcast = new Podcast();
-
-                    try{
-                        currentPodcast.setTitle(currentSourceObject.getString("author"));
-                        currentPodcast.setDate(currentSourceObject.getString("publishedAt"));
-                        currentPodcast.setUrlToImage(currentSourceObject.getString("urlToImage"));
-
-                    } catch(Exception e){
-                        System.out.println("Error in building source");
-                    }
-
-
-                    result.add(currentPodcast);
-
-                    Log.d("demo", String.valueOf(currentPodcast.getTitle()));
-                }
-                return result;
+                result = PodcastParser.PodcastPullParser.parsePodcasts(connection.getInputStream());
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (XmlPullParserException e) {
             e.printStackTrace();
         } finally {
             if (connection != null) {
@@ -75,11 +51,11 @@ public class GetItemsAsync extends AsyncTask<String, Void, ArrayList<Podcast>> {
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Article> result) {
+    protected void onPostExecute(ArrayList<Podcast> result) {
         if (result.size() > 0) {
             Log.d("demo", result.toString());
             super.onPostExecute(result);
-            main.handleArticle(result);
+            main.handlePodcasts(result);
         } else {
             Log.d("demo", "null result");
         }
