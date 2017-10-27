@@ -53,11 +53,11 @@ public class GetItemsAsync extends AsyncTask<String, Void, ArrayList<Podcast>> {
     @Override
     protected void onPostExecute(ArrayList<Podcast> result) {
         if (result.size() > 0) {
-            Log.d("demo", result.toString());
+            //Log.d("demo", result.toString());
             super.onPostExecute(result);
             main.handlePodcasts(result);
         } else {
-            Log.d("demo", "null result");
+            Log.d("Alert", "null result");
         }
     }
 }

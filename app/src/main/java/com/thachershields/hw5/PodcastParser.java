@@ -42,21 +42,21 @@ public class PodcastParser {
                         }
                         else if(parser.getName().equals("title")){
                             podcast.setTitle(parser.nextText().trim());
-                            System.out.println(podcast.getTitle());
+                            //System.out.println(podcast.getTitle());
                         }
                         else if(parser.getName().equals("summary")){
                             podcast.setSummary(parser.nextText().trim());
-                            System.out.println(podcast.getSummary());
+                            //System.out.println(podcast.getSummary());
                         }
                         else if(parser.getName().equals("im:image")){
                             if(parser.getAttributeValue(null, "height").equals("60")){
                                 podcast.setUrlToImage(parser.nextText().trim());
-                                System.out.println(podcast.getUrlToImage());
+                                //System.out.println(podcast.getUrlToImage());
                             }
                         }
                         else if(parser.getName().equals("im:releaseDate")){
                             podcast.setDate(parser.nextText().trim());
-                            System.out.println(podcast.getDate());
+                            //System.out.println(podcast.getDate());
                         }
 
                         break;

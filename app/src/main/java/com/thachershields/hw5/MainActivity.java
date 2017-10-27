@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         progress = new ProgressDialog(MainActivity.this);
         progress.setCancelable(false);
 
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+
         if(isConnected()){
             Toast.makeText(MainActivity.this, "Internet Connected", Toast.LENGTH_SHORT).show();
             progress.setTitle("Loading Data...");
@@ -58,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 searchList = new ArrayList<Podcast>();
                 podcastList.clear();
                 for(int i = 0; i < backupList.size(); i++){
@@ -105,9 +113,11 @@ public class MainActivity extends AppCompatActivity {
 
         Collections.sort(podcastList);
 
+        /*
         for(int i = 0; i<podcastList.size(); i++){
             System.out.println(podcastList.get(i).toString());
         }
+        */
 
         lvResults = (ListView) findViewById(R.id.lvResults);
         adapter = new PodcastAdapter(this, R.layout.list_item, podcastList);
